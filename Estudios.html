@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>App para Estudiantes</title>
+    <title>App para Estudiantes - Estudio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preload" href="styles.css" as="style">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body class="bg-gray-50">
-    <!-- Header -->
     <header class="gradient-bg text-white p-4 shadow-lg">
         <div class="flex items-center justify-between">
             <div class="flex items-center space-x-3">
@@ -25,36 +24,29 @@
         </div>
     </header>
 
-    <!-- Navigation -->
     <nav class="bg-white shadow-md p-4">
         <div class="flex justify-around">
-            <button class="nav-btn flex flex-col items-center p-2 rounded-lg bg-blue-100 text-blue-600">
+            <a href="index.html" class="nav-btn flex flex-col items-center p-2 rounded-lg">
                 <span class="text-xl mb-1">🏠</span>
-                <span class="text-xs" href="Inicio.html">Inicio</span>
-            </button>
-            <button class="nav-btn flex flex-col items-center p-2 rounded-lg">
+                <span class="text-xs">Inicio</span>
+            </a>
+            <a href="estudios.html" class="nav-btn flex flex-col items-center p-2 rounded-lg bg-blue-100 text-blue-600">
                 <span class="text-xl mb-1">📚</span>
-                <span class="text-xs" href="Estudios.html">Estudio</span>
-            </button>
-            <button class="nav-btn flex flex-col items-center p-2 rounded-lg">
+                <span class="text-xs">Estudio</span>
+            </a>
+            <a href="horarios.html" class="nav-btn flex flex-col items-center p-2 rounded-lg">
                 <span class="text-xl mb-1">📅</span>
-                <span class="text-xs" href="Horarios.html">Horarios</span>
-            </button>
-            <!-- <button class="nav-btn flex flex-col items-center p-2 rounded-lg" data-section="activities">
-                <span class="text-xl mb-1">🎯</span>
-                <span class="text-xs">Actividades</span>
-            </button> -->
-            <button class="nav-btn flex flex-col items-center p-2 rounded-lg">
+                <span class="text-xs">Horarios</span>
+            </a>
+            <a href="juegos.html" class="nav-btn flex flex-col items-center p-2 rounded-lg">
                 <span class="text-xl mb-1">🎮</span>
-                <span class="text-xs" href="Juegos.html">Juegos</span>
-            </button>
+                <span class="text-xs">Juego</span>
+            </a>
         </div>
     </nav>
 
-    <!-- Main Content -->
     <main class="p-4 pb-20">
-        <!-- Study Methods Section -->
-        <section id="study" class="section hidden">
+        <section id="study">
             <h2 class="text-2xl font-bold text-gray-800 mb-6">📚 Métodos de Estudio</h2>
             
             <div class="space-y-4">
@@ -158,9 +150,7 @@
             </div>
         </section>
     </main>
-
-    <!-- Modals -->
-    <!-- Pomodoro Modal -->
+    
     <div id="pomodoroModal" class="modal">
         <div class="bg-white rounded-2xl p-8 max-w-md w-full mx-4">
             <div class="text-center">
@@ -187,17 +177,14 @@
         </div>
     </div>
 
-    <!-- Mind Map Modal -->
     <div id="mindMapModal" class="modal">
         <div class="bg-white rounded-2xl p-8 max-w-2xl w-full mx-4 max-h-96 overflow-y-auto">
             <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">🗺️ Ejemplo de Mapa Mental</h3>
             <div class="text-center mb-6">
                 <svg width="500" height="300" viewBox="0 0 500 300" class="mx-auto">
-                    <!-- Central topic -->
                     <circle cx="250" cy="150" r="40" fill="#3b82f6" />
                     <text x="250" y="155" text-anchor="middle" fill="white" font-weight="bold">TEMA</text>
                     
-                    <!-- Branches -->
                     <line x1="210" y1="130" x2="120" y2="80" stroke="#ef4444" stroke-width="3"/>
                     <circle cx="100" cy="60" r="25" fill="#ef4444" />
                     <text x="100" y="65" text-anchor="middle" fill="white" font-size="12">Idea 1</text>
@@ -228,7 +215,6 @@
         </div>
     </div>
 
-    <!-- Cornell Notes Modal -->
     <div id="cornellModal" class="modal">
         <div class="bg-white rounded-2xl p-8 max-w-2xl w-full mx-4 max-h-96 overflow-y-auto">
             <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">📝 Plantilla Método Cornell</h3>
@@ -260,7 +246,6 @@
         </div>
     </div>
 
-    <!-- Highlight Techniques Modal -->
     <div id="highlightModal" class="modal">
         <div class="bg-white rounded-2xl p-8 max-w-md w-full mx-4">
             <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">✏️ Técnicas de Subrayado</h3>
@@ -286,7 +271,6 @@
         </div>
     </div>
 
-    <!-- Summary Modal -->
     <div id="summaryModal" class="modal">
         <div class="bg-white rounded-2xl p-8 max-w-md w-full mx-4">
             <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">📄 Crear Resumen Efectivo</h3>
@@ -314,7 +298,6 @@
         </div>
     </div>
 
-    <!-- Schema Modal -->
     <div id="schemaModal" class="modal">
         <div class="bg-white rounded-2xl p-8 max-w-2xl w-full mx-4 max-h-96 overflow-y-auto">
             <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">🌳 Ejemplo de Esquema</h3>
@@ -353,7 +336,6 @@
         </div>
     </div>
 
-    <!-- Flashcards Modal -->
     <div id="flashcardsModal" class="modal">
         <div class="bg-white rounded-2xl p-8 max-w-md w-full mx-4">
             <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">🗃️ Fichas de Estudio</h3>
@@ -385,7 +367,6 @@
         </div>
     </div>
 
-    <!-- Notification Panel -->
     <div id="notificationPanel" class="fixed top-0 right-0 w-80 h-full bg-white shadow-2xl transform translate-x-full transition-transform duration-300 z-50">
         <div class="p-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white">
             <div class="flex justify-between items-center">
@@ -412,6 +393,7 @@
         </div>
     </div>
 
-    <script src="scrip.js"></script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'971b46c153f56df7',t:'MTc1NTYyMzU1Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+    <script src="global.js"></script>
+    <script src="estudios.js"></script>
+</body>
 </html>

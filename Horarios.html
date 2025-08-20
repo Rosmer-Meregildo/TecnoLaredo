@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>App para Estudiantes</title>
+    <title>App para Estudiantes - Horarios</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preload" href="styles.css" as="style">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body class="bg-gray-50">
-    <!-- Header -->
     <header class="gradient-bg text-white p-4 shadow-lg">
         <div class="flex items-center justify-between">
             <div class="flex items-center space-x-3">
@@ -25,36 +24,29 @@
         </div>
     </header>
 
-    <!-- Navigation -->
     <nav class="bg-white shadow-md p-4">
         <div class="flex justify-around">
-            <button class="nav-btn flex flex-col items-center p-2 rounded-lg bg-blue-100 text-blue-600">
+            <a href="index.html" class="nav-btn flex flex-col items-center p-2 rounded-lg">
                 <span class="text-xl mb-1">🏠</span>
-                <span class="text-xs" href="Inicio.html">Inicio</span>
-            </button>
-            <button class="nav-btn flex flex-col items-center p-2 rounded-lg">
+                <span class="text-xs">Inicio</span>
+            </a>
+            <a href="estudios.html" class="nav-btn flex flex-col items-center p-2 rounded-lg">
                 <span class="text-xl mb-1">📚</span>
-                <span class="text-xs" href="Estudios.html">Estudio</span>
-            </button>
-            <button class="nav-btn flex flex-col items-center p-2 rounded-lg">
+                <span class="text-xs">Estudio</span>
+            </a>
+            <a href="horarios.html" class="nav-btn flex flex-col items-center p-2 rounded-lg bg-blue-100 text-blue-600">
                 <span class="text-xl mb-1">📅</span>
-                <span class="text-xs" href="Horarios.html">Horarios</span>
-            </button>
-            <!-- <button class="nav-btn flex flex-col items-center p-2 rounded-lg" data-section="activities">
-                <span class="text-xl mb-1">🎯</span>
-                <span class="text-xs">Actividades</span>
-            </button> -->
-            <button class="nav-btn flex flex-col items-center p-2 rounded-lg">
+                <span class="text-xs">Horarios</span>
+            </a>
+            <a href="juegos.html" class="nav-btn flex flex-col items-center p-2 rounded-lg">
                 <span class="text-xl mb-1">🎮</span>
-                <span class="text-xs" href="Juegos.html">Juegos</span>
-            </button>
+                <span class="text-xs">Juego</span>
+            </a>
         </div>
     </nav>
 
-    <!-- Main Content -->
     <main class="p-4 pb-20">
-        <!-- Schedule Section -->
-        <section id="schedule" class="section hidden">
+        <section id="schedule">
             <h2 class="text-2xl font-bold text-gray-800 mb-6">📅 Gestión de Horarios</h2>
             
             <div class="bg-white rounded-xl p-6 shadow-md mb-6">
@@ -100,290 +92,8 @@
                 </div>
             </div>
         </section>
-
-        <!-- Activities Section -->
-        <section id="activities" class="section hidden">
-            <h2 class="text-2xl font-bold text-gray-800 mb-6">🎯 Actividades para Tiempo Libre</h2>
-            
-            <div class="grid grid-cols-1 gap-4">
-                <div class="card-hover bg-gradient-to-r from-orange-400 to-pink-500 rounded-xl p-6 text-white">
-                    <div class="flex items-center justify-between mb-4">
-                        <h3 class="text-xl font-bold">Actividades Creativas</h3>
-                        <span class="text-3xl">🎨</span>
-                    </div>
-                    <div class="space-y-2">
-                        <p class="bg-white bg-opacity-20 rounded-lg p-2">• Dibujar o pintar</p>
-                        <p class="bg-white bg-opacity-20 rounded-lg p-2">• Escribir un diario</p>
-                        <p class="bg-white bg-opacity-20 rounded-lg p-2">• Tocar un instrumento</p>
-                    </div>
-                </div>
-
-                <div class="card-hover bg-gradient-to-r from-green-400 to-blue-500 rounded-xl p-6 text-white">
-                    <div class="flex items-center justify-between mb-4">
-                        <h3 class="text-xl font-bold">Actividades Físicas</h3>
-                        <span class="text-3xl">⚽</span>
-                    </div>
-                    <div class="space-y-2">
-                        <p class="bg-white bg-opacity-20 rounded-lg p-2">• Caminar o correr</p>
-                        <p class="bg-white bg-opacity-20 rounded-lg p-2">• Yoga o estiramientos</p>
-                        <p class="bg-white bg-opacity-20 rounded-lg p-2">• Deportes con amigos</p>
-                    </div>
-                </div>
-
-                <div class="card-hover bg-gradient-to-r from-purple-400 to-indigo-500 rounded-xl p-6 text-white">
-                    <div class="flex items-center justify-between mb-4">
-                        <h3 class="text-xl font-bold">Actividades Sociales</h3>
-                        <span class="text-3xl">👥</span>
-                    </div>
-                    <div class="space-y-2">
-                        <p class="bg-white bg-opacity-20 rounded-lg p-2">• Llamar a un amigo</p>
-                        <p class="bg-white bg-opacity-20 rounded-lg p-2">• Juegos de mesa</p>
-                        <p class="bg-white bg-opacity-20 rounded-lg p-2">• Voluntariado</p>
-                    </div>
-                </div>
-
-                <div class="card-hover bg-gradient-to-r from-yellow-400 to-orange-500 rounded-xl p-6 text-white">
-                    <div class="flex items-center justify-between mb-4">
-                        <h3 class="text-xl font-bold">Actividades de Relajación</h3>
-                        <span class="text-3xl">🧘‍♀️</span>
-                    </div>
-                    <div class="space-y-2">
-                        <p class="bg-white bg-opacity-20 rounded-lg p-2">• Meditar</p>
-                        <p class="bg-white bg-opacity-20 rounded-lg p-2">• Leer un libro</p>
-                        <p class="bg-white bg-opacity-20 rounded-lg p-2">• Escuchar música</p>
-                    </div>
-                </div>
-            </div>
-        </section>
     </main>
 
-    <!-- Modals -->
-    <!-- Pomodoro Modal -->
-    <div id="pomodoroModal" class="modal">
-        <div class="bg-white rounded-2xl p-8 max-w-md w-full mx-4">
-            <div class="text-center">
-                <h3 class="text-2xl font-bold text-gray-800 mb-6">🍅 Temporizador Pomodoro</h3>
-                <div class="relative w-48 h-48 mx-auto mb-6">
-                    <svg class="progress-ring w-full h-full">
-                        <circle cx="96" cy="96" r="45" stroke="#e5e7eb" stroke-width="8" fill="transparent"/>
-                        <circle id="progressCircle" cx="96" cy="96" r="45" stroke="#ef4444" stroke-width="8" fill="transparent" class="progress-ring-circle"/>
-                    </svg>
-                    <div class="absolute inset-0 flex items-center justify-center">
-                        <div class="text-center">
-                            <div id="timerDisplay" class="pomodoro-timer text-red-500">25:00</div>
-                            <div id="timerStatus" class="text-sm text-gray-600">Listo para estudiar</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex justify-center space-x-4 mb-6">
-                    <button id="startTimer" class="bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-600">Iniciar</button>
-                    <button id="pauseTimer" class="bg-yellow-500 text-white px-6 py-2 rounded-lg hover:bg-yellow-600">Pausar</button>
-                    <button id="resetTimer" class="bg-gray-500 text-white px-6 py-2 rounded-lg hover:bg-gray-600">Reiniciar</button>
-                </div>
-                <button id="closePomodoroModal" class="text-gray-500 hover:text-gray-700">Cerrar</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Mind Map Modal -->
-    <div id="mindMapModal" class="modal">
-        <div class="bg-white rounded-2xl p-8 max-w-2xl w-full mx-4 max-h-96 overflow-y-auto">
-            <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">🗺️ Ejemplo de Mapa Mental</h3>
-            <div class="text-center mb-6">
-                <svg width="500" height="300" viewBox="0 0 500 300" class="mx-auto">
-                    <!-- Central topic -->
-                    <circle cx="250" cy="150" r="40" fill="#3b82f6" />
-                    <text x="250" y="155" text-anchor="middle" fill="white" font-weight="bold">TEMA</text>
-                    
-                    <!-- Branches -->
-                    <line x1="210" y1="130" x2="120" y2="80" stroke="#ef4444" stroke-width="3"/>
-                    <circle cx="100" cy="60" r="25" fill="#ef4444" />
-                    <text x="100" y="65" text-anchor="middle" fill="white" font-size="12">Idea 1</text>
-                    
-                    <line x1="290" y1="130" x2="380" y2="80" stroke="#10b981" stroke-width="3"/>
-                    <circle cx="400" cy="60" r="25" fill="#10b981" />
-                    <text x="400" y="65" text-anchor="middle" fill="white" font-size="12">Idea 2</text>
-                    
-                    <line x1="210" y1="170" x2="120" y2="220" stroke="#f59e0b" stroke-width="3"/>
-                    <circle cx="100" cy="240" r="25" fill="#f59e0b" />
-                    <text x="100" y="245" text-anchor="middle" fill="white" font-size="12">Idea 3</text>
-                    
-                    <line x1="290" y1="170" x2="380" y2="220" stroke="#8b5cf6" stroke-width="3"/>
-                    <circle cx="400" cy="240" r="25" fill="#8b5cf6" />
-                    <text x="400" y="245" text-anchor="middle" fill="white" font-size="12">Idea 4</text>
-                </svg>
-            </div>
-            <div class="text-gray-700 mb-6">
-                <h4 class="font-semibold mb-2">Consejos para crear mapas mentales:</h4>
-                <ul class="list-disc list-inside space-y-1 text-sm">
-                    <li>Coloca el tema principal en el centro</li>
-                    <li>Usa colores diferentes para cada rama</li>
-                    <li>Incluye palabras clave, no oraciones completas</li>
-                    <li>Agrega imágenes o símbolos cuando sea posible</li>
-                </ul>
-            </div>
-            <button id="closeMindMapModal" class="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600">Cerrar</button>
-        </div>
-    </div>
-
-    <!-- Cornell Notes Modal -->
-    <div id="cornellModal" class="modal">
-        <div class="bg-white rounded-2xl p-8 max-w-2xl w-full mx-4 max-h-96 overflow-y-auto">
-            <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">📝 Plantilla Método Cornell</h3>
-            <div class="border-2 border-gray-300 rounded-lg p-4 mb-6">
-                <div class="grid grid-cols-3 gap-4 h-64">
-                    <div class="border-r-2 border-gray-300 pr-4">
-                        <h4 class="font-semibold text-green-600 mb-2">Palabras Clave</h4>
-                        <div class="text-sm text-gray-600 space-y-2">
-                            <p>• Concepto 1</p>
-                            <p>• Concepto 2</p>
-                            <p>• Concepto 3</p>
-                        </div>
-                    </div>
-                    <div class="col-span-2">
-                        <h4 class="font-semibold text-blue-600 mb-2">Notas Principales</h4>
-                        <div class="text-sm text-gray-600 space-y-2">
-                            <p>Aquí escribes las notas detalladas de la clase o lectura...</p>
-                            <p>Incluye explicaciones, ejemplos y detalles importantes...</p>
-                            <p>Mantén las ideas organizadas y claras...</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="border-t-2 border-gray-300 pt-4 mt-4">
-                    <h4 class="font-semibold text-purple-600 mb-2">Resumen</h4>
-                    <p class="text-sm text-gray-600">Escribe un resumen breve de los puntos más importantes al final de la sesión de estudio.</p>
-                </div>
-            </div>
-            <button id="closeCornellModal" class="w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600">Cerrar</button>
-        </div>
-    </div>
-
-    <!-- Highlight Techniques Modal -->
-    <div id="highlightModal" class="modal">
-        <div class="bg-white rounded-2xl p-8 max-w-md w-full mx-4">
-            <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">✏️ Técnicas de Subrayado</h3>
-            <div class="space-y-4 mb-6">
-                <div class="p-3 bg-yellow-100 border-l-4 border-yellow-500 rounded">
-                    <h4 class="font-semibold text-yellow-800">🟡 Amarillo - Ideas Principales</h4>
-                    <p class="text-sm text-yellow-700">Para conceptos clave y definiciones importantes</p>
-                </div>
-                <div class="p-3 bg-green-100 border-l-4 border-green-500 rounded">
-                    <h4 class="font-semibold text-green-800">🟢 Verde - Ejemplos</h4>
-                    <p class="text-sm text-green-700">Para casos prácticos y ejemplos ilustrativos</p>
-                </div>
-                <div class="p-3 bg-blue-100 border-l-4 border-blue-500 rounded">
-                    <h4 class="font-semibold text-blue-800">🔵 Azul - Datos y Fechas</h4>
-                    <p class="text-sm text-blue-700">Para información específica y datos importantes</p>
-                </div>
-                <div class="p-3 bg-red-100 border-l-4 border-red-500 rounded">
-                    <h4 class="font-semibold text-red-800">🔴 Rojo - Dudas</h4>
-                    <p class="text-sm text-red-700">Para marcar lo que necesitas repasar o consultar</p>
-                </div>
-            </div>
-            <button id="closeHighlightModal" class="w-full bg-yellow-500 text-white py-2 rounded-lg hover:bg-yellow-600">Cerrar</button>
-        </div>
-    </div>
-
-    <!-- Summary Modal -->
-    <div id="summaryModal" class="modal">
-        <div class="bg-white rounded-2xl p-8 max-w-md w-full mx-4">
-            <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">📄 Crear Resumen Efectivo</h3>
-            <div class="space-y-4 mb-6">
-                <div class="p-4 bg-purple-50 rounded-lg">
-                    <h4 class="font-semibold text-purple-800 mb-2">Pasos para resumir:</h4>
-                    <ol class="list-decimal list-inside text-sm text-purple-700 space-y-1">
-                        <li>Lee todo el material primero</li>
-                        <li>Identifica las ideas principales</li>
-                        <li>Escribe con tus propias palabras</li>
-                        <li>Mantén solo lo esencial</li>
-                        <li>Revisa y ajusta la longitud</li>
-                    </ol>
-                </div>
-                <div class="p-4 bg-purple-50 rounded-lg">
-                    <h4 class="font-semibold text-purple-800 mb-2">💡 Consejos:</h4>
-                    <ul class="list-disc list-inside text-sm text-purple-700 space-y-1">
-                        <li>Un resumen debe ser 25% del texto original</li>
-                        <li>Usa conectores para unir ideas</li>
-                        <li>Evita copiar textualmente</li>
-                    </ul>
-                </div>
-            </div>
-            <button id="closeSummaryModal" class="w-full bg-purple-500 text-white py-2 rounded-lg hover:bg-purple-600">Cerrar</button>
-        </div>
-    </div>
-
-    <!-- Schema Modal -->
-    <div id="schemaModal" class="modal">
-        <div class="bg-white rounded-2xl p-8 max-w-2xl w-full mx-4 max-h-96 overflow-y-auto">
-            <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">🌳 Ejemplo de Esquema</h3>
-            <div class="bg-indigo-50 p-6 rounded-lg mb-6">
-                <div class="space-y-3">
-                    <div class="font-bold text-indigo-800 text-lg">I. TEMA PRINCIPAL</div>
-                    <div class="ml-6 space-y-2">
-                        <div class="font-semibold text-indigo-700">A. Subtema 1</div>
-                        <div class="ml-6 space-y-1 text-indigo-600">
-                            <div>1. Punto específico</div>
-                            <div>2. Punto específico</div>
-                        </div>
-                        <div class="font-semibold text-indigo-700">B. Subtema 2</div>
-                        <div class="ml-6 space-y-1 text-indigo-600">
-                            <div>1. Punto específico</div>
-                            <div>2. Punto específico</div>
-                        </div>
-                    </div>
-                    <div class="font-bold text-indigo-800 text-lg">II. TEMA SECUNDARIO</div>
-                    <div class="ml-6 space-y-2">
-                        <div class="font-semibold text-indigo-700">A. Subtema 1</div>
-                        <div class="font-semibold text-indigo-700">B. Subtema 2</div>
-                    </div>
-                </div>
-            </div>
-            <div class="text-gray-700 mb-6">
-                <h4 class="font-semibold mb-2">Ventajas de los esquemas:</h4>
-                <ul class="list-disc list-inside text-sm space-y-1">
-                    <li>Organizan la información jerárquicamente</li>
-                    <li>Facilitan la memorización</li>
-                    <li>Muestran relaciones entre conceptos</li>
-                    <li>Permiten repasos rápidos</li>
-                </ul>
-            </div>
-            <button id="closeSchemaModal" class="w-full bg-indigo-500 text-white py-2 rounded-lg hover:bg-indigo-600">Cerrar</button>
-        </div>
-    </div>
-
-    <!-- Flashcards Modal -->
-    <div id="flashcardsModal" class="modal">
-        <div class="bg-white rounded-2xl p-8 max-w-md w-full mx-4">
-            <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">🗃️ Fichas de Estudio</h3>
-            <div class="flashcard mx-auto mb-6" id="flashcard">
-                <div class="flashcard-inner">
-                    <div class="flashcard-front bg-pink-500 text-white">
-                        <div>
-                            <h4 class="font-bold mb-2">Pregunta:</h4>
-                            <p id="questionText">¿Cuál es la capital de Francia?</p>
-                        </div>
-                    </div>
-                    <div class="flashcard-back bg-green-500 text-white">
-                        <div>
-                            <h4 class="font-bold mb-2">Respuesta:</h4>
-                            <p id="answerText">París</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="text-center mb-6">
-                <button id="flipCard" class="bg-pink-500 text-white px-6 py-2 rounded-lg hover:bg-pink-600 mb-4">Voltear Tarjeta</button>
-                <div class="flex justify-center space-x-4">
-                    <button id="prevCard" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600">← Anterior</button>
-                    <span id="cardCounter" class="flex items-center px-4 py-2 bg-gray-100 rounded-lg">1 / 3</span>
-                    <button id="nextCard" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600">Siguiente →</button>
-                </div>
-            </div>
-            <button id="closeFlashcardsModal" class="w-full bg-pink-500 text-white py-2 rounded-lg hover:bg-pink-600">Cerrar</button>
-        </div>
-    </div>
-
-    <!-- Notification Panel -->
     <div id="notificationPanel" class="fixed top-0 right-0 w-80 h-full bg-white shadow-2xl transform translate-x-full transition-transform duration-300 z-50">
         <div class="p-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white">
             <div class="flex justify-between items-center">
@@ -410,6 +120,7 @@
         </div>
     </div>
 
-    <script src="scrip.js"></script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'971b46c153f56df7',t:'MTc1NTYyMzU1Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+    <script src="global.js"></script>
+    <script src="horarios.js"></script>
+</body>
 </html>
