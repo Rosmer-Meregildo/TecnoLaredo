@@ -4,13 +4,121 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>App para Estudiantes - Estudio</title>
+    <!-- Tailwind CSS para un estilo rápido y responsivo -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preload" href="styles.css" as="style">
-    <link rel="stylesheet" href="styles.css">
+    <!-- Fuente Poppins para una tipografía moderna -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" as="style">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap">
+    <!-- Font Awesome para los íconos del temporizador y otros -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Estilos CSS integrados -->
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            transition: background-color 0.3s ease;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .notification {
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .pomodoro-timer {
+            font-size: 3rem;
+            font-weight: bold;
+        }
+
+        .timer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .flashcard {
+            perspective: 1000px;
+            width: 300px;
+            height: 200px;
+        }
+
+        .flashcard-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .flashcard.flipped .flashcard-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-front,
+        .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .flashcard-back {
+            transform: rotateY(180deg);
+        }
+    </style>
 </head>
-<body class="bg-gray-50">
+<body class="bg-gray-50 font-sans">
     <header class="gradient-bg text-white p-4 shadow-lg">
-        <div class="flex items-center justify-between">
+        <div class="container mx-auto flex items-center justify-between">
             <div class="flex items-center space-x-3">
                 <div class="w-10 h-10 bg-yellow-400 rounded-full flex items-center justify-center">
                     <span class="text-2xl">🏆</span>
@@ -19,152 +127,145 @@
             </div>
             <button id="notificationBtn" class="relative p-2 bg-white bg-opacity-20 rounded-full">
                 <span class="text-xl">🔔</span>
-                <span id="notificationBadge" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">3</span>
+                <span id="notificationBadge" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
             </button>
         </div>
     </header>
-
     <nav class="bg-white shadow-md p-4">
-        <div class="flex justify-around">
+        <div class="container mx-auto flex justify-around">
             <a href="index.php" class="nav-btn flex flex-col items-center p-2 rounded-lg">
                 <span class="text-xl mb-1">🏠</span>
                 <span class="text-xs">Inicio</span>
             </a>
-            <a href="estudios.html" class="nav-btn flex flex-col items-center p-2 rounded-lg bg-blue-100 text-blue-600">
+            <a href="Estudios.html" class="nav-btn flex flex-col items-center p-2 rounded-lg bg-blue-100 text-blue-600">
                 <span class="text-xl mb-1">📚</span>
                 <span class="text-xs">Estudio</span>
             </a>
-            <a href="horarios.html" class="nav-btn flex flex-col items-center p-2 rounded-lg">
+            <a href="Horarios.html" class="nav-btn flex flex-col items-center p-2 rounded-lg">
                 <span class="text-xl mb-1">📅</span>
                 <span class="text-xs">Horarios</span>
             </a>
-            <a href="juegos.html" class="nav-btn flex flex-col items-center p-2 rounded-lg">
+            <a href="Juegos.html" class="nav-btn flex flex-col items-center p-2 rounded-lg">
                 <span class="text-xl mb-1">🎮</span>
                 <span class="text-xs">Juego</span>
             </a>
         </div>
     </nav>
-
-    <main class="p-4 pb-20">
+    <main class="p-4 pb-20 container mx-auto">
         <section id="study">
             <h2 class="text-2xl font-bold text-gray-800 mb-6">📚 Métodos de Estudio</h2>
-            
-            <div class="space-y-4">
-                <div class="card-hover bg-white rounded-xl p-6 shadow-md">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mr-4">
-                            <span class="text-2xl">🍅</span>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="space-y-4">
+                    <div class="card-hover bg-white rounded-xl p-6 shadow-md">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mr-4">
+                                <span class="text-2xl">🍅</span>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800">Técnica Pomodoro</h3>
+                                <p class="text-sm text-gray-600">25 min estudio + 5 min descanso</p>
+                            </div>
                         </div>
-                        <div>
-                            <h3 class="text-lg font-semibold text-gray-800">Técnica Pomodoro</h3>
-                            <p class="text-sm text-gray-600">25 min estudio + 5 min descanso</p>
-                        </div>
+                        <p class="text-gray-700 mb-4">Divide tu tiempo de estudio en bloques de 25 minutos con descansos cortos. Perfecto para mantener la concentración.</p>
+                        <button id="pomodoroBtn" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors">Iniciar Pomodoro</button>
                     </div>
-                    <p class="text-gray-700 mb-4">Divide tu tiempo de estudio en bloques de 25 minutos con descansos cortos. Perfecto para mantener la concentración.</p>
-                    <button id="pomodoroBtn" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors">Iniciar Pomodoro</button>
+                    <div class="card-hover bg-white rounded-xl p-6 shadow-md">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                                <span class="text-2xl">🗺</span>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800">Mapas Mentales</h3>
+                                <p class="text-sm text-gray-600">Organiza ideas visualmente</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 mb-4">Conecta conceptos de forma visual para mejorar la comprensión y memoria.</p>
+                        <button id="mindMapBtn" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors">Ver Ejemplos</button>
+                    </div>
+                    <div class="card-hover bg-white rounded-xl p-6 shadow-md">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4">
+                                <span class="text-2xl">📝</span>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800">Método Cornell</h3>
+                                <p class="text-sm text-gray-600">Toma de notas estructurada</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 mb-4">Divide tus notas en secciones: notas, palabras clave y resumen.</p>
+                        <button id="cornellBtn" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors">Crear Plantilla</button>
+                    </div>
+                    <div class="card-hover bg-white rounded-xl p-6 shadow-md">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center mr-4">
+                                <span class="text-2xl">✏</span>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800">Subrayado</h3>
+                                <p class="text-sm text-gray-600">Resalta información clave</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 mb-4">Identifica y marca las ideas principales usando diferentes colores para categorizar la información.</p>
+                        <button id="highlightBtn" class="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition-colors">Ver Técnicas</button>
+                    </div>
                 </div>
-
-                <div class="card-hover bg-white rounded-xl p-6 shadow-md">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
-                            <span class="text-2xl">🗺️</span>
+                <div class="space-y-4">
+                    <div class="card-hover bg-white rounded-xl p-6 shadow-md">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mr-4">
+                                <span class="text-2xl">📄</span>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800">Resumen</h3>
+                                <p class="text-sm text-gray-600">Sintetiza contenido esencial</p>
+                            </div>
                         </div>
-                        <div>
-                            <h3 class="text-lg font-semibold text-gray-800">Mapas Mentales</h3>
-                            <p class="text-sm text-gray-600">Organiza ideas visualmente</p>
-                        </div>
+                        <p class="text-gray-700 mb-4">Condensa la información más importante en tus propias palabras para mejorar la comprensión.</p>
+                        <button id="summaryBtn" class="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600 transition-colors">Crear Resumen</button>
                     </div>
-                    <p class="text-gray-700 mb-4">Conecta conceptos de forma visual para mejorar la comprensión y memoria.</p>
-                    <button id="mindMapBtn" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors">Ver Ejemplos</button>
-                </div>
-
-                <div class="card-hover bg-white rounded-xl p-6 shadow-md">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4">
-                            <span class="text-2xl">📝</span>
+                    <div class="card-hover bg-white rounded-xl p-6 shadow-md">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center mr-4">
+                                <span class="text-2xl">🌳</span>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800">Esquemas</h3>
+                                <p class="text-sm text-gray-600">Organiza información jerárquicamente</p>
+                            </div>
                         </div>
-                        <div>
-                            <h3 class="text-lg font-semibold text-gray-800">Método Cornell</h3>
-                            <p class="text-sm text-gray-600">Toma de notas estructurada</p>
-                        </div>
+                        <p class="text-gray-700 mb-4">Estructura el contenido en niveles y categorías para visualizar las relaciones entre conceptos.</p>
+                        <button id="schemaBtn" class="bg-indigo-500 text-white px-4 py-2 rounded-lg hover:bg-indigo-600 transition-colors">Hacer Esquema</button>
                     </div>
-                    <p class="text-gray-700 mb-4">Divide tus notas en secciones: notas, palabras clave y resumen.</p>
-                    <button id="cornellBtn" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors">Crear Plantilla</button>
-                </div>
-
-                <div class="card-hover bg-white rounded-xl p-6 shadow-md">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center mr-4">
-                            <span class="text-2xl">✏️</span>
+                    <div class="card-hover bg-white rounded-xl p-6 shadow-md">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center mr-4">
+                                <span class="text-2xl">🗃</span>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800">Fichas de Estudio</h3>
+                                <p class="text-sm text-gray-600">Repaso activo con tarjetas</p>
+                            </div>
                         </div>
-                        <div>
-                            <h3 class="text-lg font-semibold text-gray-800">Subrayado</h3>
-                            <p class="text-sm text-gray-600">Resalta información clave</p>
-                        </div>
+                        <p class="text-gray-700 mb-4">Crea tarjetas con preguntas y respuestas para practicar y memorizar conceptos clave.</p>
+                        <button id="flashcardsBtn" class="bg-pink-500 text-white px-4 py-2 rounded-lg hover:bg-pink-600 transition-colors">Crear Fichas</button>
                     </div>
-                    <p class="text-gray-700 mb-4">Identifica y marca las ideas principales usando diferentes colores para categorizar la información.</p>
-                    <button id="highlightBtn" class="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition-colors">Ver Técnicas</button>
-                </div>
-
-                <div class="card-hover bg-white rounded-xl p-6 shadow-md">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mr-4">
-                            <span class="text-2xl">📄</span>
-                        </div>
-                        <div>
-                            <h3 class="text-lg font-semibold text-gray-800">Resumen</h3>
-                            <p class="text-sm text-gray-600">Sintetiza contenido esencial</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-700 mb-4">Condensa la información más importante en tus propias palabras para mejorar la comprensión.</p>
-                    <button id="summaryBtn" class="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600 transition-colors">Crear Resumen</button>
-                </div>
-
-                <div class="card-hover bg-white rounded-xl p-6 shadow-md">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center mr-4">
-                            <span class="text-2xl">🌳</span>
-                        </div>
-                        <div>
-                            <h3 class="text-lg font-semibold text-gray-800">Esquemas</h3>
-                            <p class="text-sm text-gray-600">Organiza información jerárquicamente</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-700 mb-4">Estructura el contenido en niveles y categorías para visualizar las relaciones entre conceptos.</p>
-                    <button id="schemaBtn" class="bg-indigo-500 text-white px-4 py-2 rounded-lg hover:bg-indigo-600 transition-colors">Hacer Esquema</button>
-                </div>
-
-                <div class="card-hover bg-white rounded-xl p-6 shadow-md">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center mr-4">
-                            <span class="text-2xl">🗃️</span>
-                        </div>
-                        <div>
-                            <h3 class="text-lg font-semibold text-gray-800">Fichas de Estudio</h3>
-                            <p class="text-sm text-gray-600">Repaso activo con tarjetas</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-700 mb-4">Crea tarjetas con preguntas y respuestas para practicar y memorizar conceptos clave.</p>
-                    <button id="flashcardsBtn" class="bg-pink-500 text-white px-4 py-2 rounded-lg hover:bg-pink-600 transition-colors">Crear Fichas</button>
                 </div>
             </div>
         </section>
     </main>
-    
+
+    <!-- Modals -->
     <div id="pomodoroModal" class="modal">
         <div class="bg-white rounded-2xl p-8 max-w-md w-full mx-4">
             <div class="text-center">
                 <h3 class="text-2xl font-bold text-gray-800 mb-6">🍅 Temporizador Pomodoro</h3>
-                <div class="relative w-48 h-48 mx-auto mb-6">
-                    <svg class="progress-ring w-full h-full">
-                        <circle cx="96" cy="96" r="45" stroke="#e5e7eb" stroke-width="8" fill="transparent"/>
-                        <circle id="progressCircle" cx="96" cy="96" r="45" stroke="#ef4444" stroke-width="8" fill="transparent" class="progress-ring-circle"/>
-                    </svg>
-                    <div class="absolute inset-0 flex items-center justify-center">
-                        <div class="text-center">
-                            <div id="timerDisplay" class="pomodoro-timer text-red-500">25:00</div>
-                            <div id="timerStatus" class="text-sm text-gray-600">Listo para estudiar</div>
-                        </div>
+                <div class="flex flex-col items-center justify-center mb-6">
+                    <div class="w-24 h-24 flex items-center justify-center text-red-500">
+                        <i class="fas fa-clock text-6xl"></i>
+                    </div>
+                    <div class="timer-content mt-4">
+                        <div id="timerDisplay" class="pomodoro-timer text-red-500">25:00</div>
+                        <div id="timerStatus" class="text-sm text-gray-600">Listo para estudiar</div>
                     </div>
                 </div>
                 <div class="flex justify-center space-x-4 mb-6">
@@ -176,27 +277,22 @@
             </div>
         </div>
     </div>
-
     <div id="mindMapModal" class="modal">
         <div class="bg-white rounded-2xl p-8 max-w-2xl w-full mx-4 max-h-96 overflow-y-auto">
-            <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">🗺️ Ejemplo de Mapa Mental</h3>
+            <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">🗺 Ejemplo de Mapa Mental</h3>
             <div class="text-center mb-6">
                 <svg width="500" height="300" viewBox="0 0 500 300" class="mx-auto">
                     <circle cx="250" cy="150" r="40" fill="#3b82f6" />
                     <text x="250" y="155" text-anchor="middle" fill="white" font-weight="bold">TEMA</text>
-                    
                     <line x1="210" y1="130" x2="120" y2="80" stroke="#ef4444" stroke-width="3"/>
                     <circle cx="100" cy="60" r="25" fill="#ef4444" />
                     <text x="100" y="65" text-anchor="middle" fill="white" font-size="12">Idea 1</text>
-                    
                     <line x1="290" y1="130" x2="380" y2="80" stroke="#10b981" stroke-width="3"/>
                     <circle cx="400" cy="60" r="25" fill="#10b981" />
                     <text x="400" y="65" text-anchor="middle" fill="white" font-size="12">Idea 2</text>
-                    
                     <line x1="210" y1="170" x2="120" y2="220" stroke="#f59e0b" stroke-width="3"/>
                     <circle cx="100" cy="240" r="25" fill="#f59e0b" />
                     <text x="100" y="245" text-anchor="middle" fill="white" font-size="12">Idea 3</text>
-                    
                     <line x1="290" y1="170" x2="380" y2="220" stroke="#8b5cf6" stroke-width="3"/>
                     <circle cx="400" cy="240" r="25" fill="#8b5cf6" />
                     <text x="400" y="245" text-anchor="middle" fill="white" font-size="12">Idea 4</text>
@@ -214,7 +310,6 @@
             <button id="closeMindMapModal" class="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600">Cerrar</button>
         </div>
     </div>
-
     <div id="cornellModal" class="modal">
         <div class="bg-white rounded-2xl p-8 max-w-2xl w-full mx-4 max-h-96 overflow-y-auto">
             <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">📝 Plantilla Método Cornell</h3>
@@ -245,10 +340,9 @@
             <button id="closeCornellModal" class="w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600">Cerrar</button>
         </div>
     </div>
-
     <div id="highlightModal" class="modal">
         <div class="bg-white rounded-2xl p-8 max-w-md w-full mx-4">
-            <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">✏️ Técnicas de Subrayado</h3>
+            <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">✏ Técnicas de Subrayado</h3>
             <div class="space-y-4 mb-6">
                 <div class="p-3 bg-yellow-100 border-l-4 border-yellow-500 rounded">
                     <h4 class="font-semibold text-yellow-800">🟡 Amarillo - Ideas Principales</h4>
@@ -270,7 +364,6 @@
             <button id="closeHighlightModal" class="w-full bg-yellow-500 text-white py-2 rounded-lg hover:bg-yellow-600">Cerrar</button>
         </div>
     </div>
-
     <div id="summaryModal" class="modal">
         <div class="bg-white rounded-2xl p-8 max-w-md w-full mx-4">
             <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">📄 Crear Resumen Efectivo</h3>
@@ -297,7 +390,6 @@
             <button id="closeSummaryModal" class="w-full bg-purple-500 text-white py-2 rounded-lg hover:bg-purple-600">Cerrar</button>
         </div>
     </div>
-
     <div id="schemaModal" class="modal">
         <div class="bg-white rounded-2xl p-8 max-w-2xl w-full mx-4 max-h-96 overflow-y-auto">
             <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">🌳 Ejemplo de Esquema</h3>
@@ -335,22 +427,21 @@
             <button id="closeSchemaModal" class="w-full bg-indigo-500 text-white py-2 rounded-lg hover:bg-indigo-600">Cerrar</button>
         </div>
     </div>
-
     <div id="flashcardsModal" class="modal">
         <div class="bg-white rounded-2xl p-8 max-w-md w-full mx-4">
-            <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">🗃️ Fichas de Estudio</h3>
+            <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">🗃 Fichas de Estudio</h3>
             <div class="flashcard mx-auto mb-6" id="flashcard">
                 <div class="flashcard-inner">
                     <div class="flashcard-front bg-pink-500 text-white">
                         <div>
                             <h4 class="font-bold mb-2">Pregunta:</h4>
-                            <p id="questionText">¿Cuál es la capital de Francia?</p>
+                            <p id="questionText"></p>
                         </div>
                     </div>
                     <div class="flashcard-back bg-green-500 text-white">
                         <div>
                             <h4 class="font-bold mb-2">Respuesta:</h4>
-                            <p id="answerText">París</p>
+                            <p id="answerText"></p>
                         </div>
                     </div>
                 </div>
@@ -359,19 +450,21 @@
                 <button id="flipCard" class="bg-pink-500 text-white px-6 py-2 rounded-lg hover:bg-pink-600 mb-4">Voltear Tarjeta</button>
                 <div class="flex justify-center space-x-4">
                     <button id="prevCard" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600">← Anterior</button>
-                    <span id="cardCounter" class="flex items-center px-4 py-2 bg-gray-100 rounded-lg">1 / 3</span>
+                    <span id="cardCounter" class="flex items-center px-4 py-2 bg-gray-100 rounded-lg"></span>
                     <button id="nextCard" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600">Siguiente →</button>
                 </div>
             </div>
             <button id="closeFlashcardsModal" class="w-full bg-pink-500 text-white py-2 rounded-lg hover:bg-pink-600">Cerrar</button>
         </div>
     </div>
-
-    <div id="notificationPanel" class="fixed top-0 right-0 w-80 h-full bg-white shadow-2xl transform translate-x-full transition-transform duration-300 z-50">
+    
+    <!-- Panel de notificaciones -->
+    <!-- <div id="notificationPanel" class="fixed top-0 right-0 w-80 h-full bg-white shadow-2xl transform translate-x-full transition-transform duration-300 z-50">
         <div class="p-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white">
             <div class="flex justify-between items-center">
-                <h3 class="text-lg font-semibold">Notificaciones</h3>
-                <button id="closeNotifications" class="text-2xl">&times;</button>
+                <h3 class="text-lg font-semibold">Notificaciones</h3> -->
+                <!-- Se cambió el ID para que coincida con el JavaScript -->
+                <!-- <button id="closeNotificationsBtn" class="text-2xl">&times;</button>
             </div>
         </div>
         <div class="p-4 space-y-4">
@@ -392,8 +485,166 @@
             </div>
         </div>
     </div>
+    -->
+    <!-- Lógica de JavaScript integrada -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
 
-    <script src="/js/global.js"></script>
-    <script src="/js/estudios.js"></script>
+            // --- Temporizador Pomodoro ---
+            const pomodoroModal = document.getElementById('pomodoroModal');
+            if (pomodoroModal) {
+                let pomodoroTimer = null;
+                let pomodoroTime = 25 * 60;
+                let isRunning = false;
+                let isBreak = false;
+
+                document.getElementById('pomodoroBtn').addEventListener('click', () => pomodoroModal.classList.add('show'));
+                document.getElementById('closePomodoroModal').addEventListener('click', () => pomodoroModal.classList.remove('show'));
+
+                document.getElementById('startTimer').addEventListener('click', () => {
+                    if (!isRunning) {
+                        isRunning = true;
+                        pomodoroTimer = setInterval(updatePomodoroTimer, 1000);
+                        document.getElementById('timerStatus').textContent = isBreak ? 'Tiempo de descanso' : 'Estudiando...';
+                    }
+                });
+
+                document.getElementById('pauseTimer').addEventListener('click', () => {
+                    if (isRunning) {
+                        isRunning = false;
+                        clearInterval(pomodoroTimer);
+                        document.getElementById('timerStatus').textContent = 'Pausado';
+                    }
+                });
+
+                document.getElementById('resetTimer').addEventListener('click', () => {
+                    isRunning = false;
+                    clearInterval(pomodoroTimer);
+                    isBreak = false; // Siempre reiniciar al estado de estudio
+                    pomodoroTime = 25 * 60;
+                    updatePomodoroDisplay();
+                    document.getElementById('timerStatus').textContent = 'Listo para estudiar';
+                });
+
+                function updatePomodoroTimer() {
+                    pomodoroTime--;
+                    updatePomodoroDisplay();
+                    
+                    if (pomodoroTime < 0) {
+                        clearInterval(pomodoroTimer);
+                        isRunning = false;
+                        isBreak = !isBreak;
+                        pomodoroTime = isBreak ? 5 * 60 : 25 * 60;
+                        // Se eliminó el "alert()" y se actualiza el estado en pantalla
+                        document.getElementById('timerStatus').textContent = isBreak ? '¡Tiempo de descanso! 😊' : '¡Hora de volver a estudiar! 📚';
+                        updatePomodoroDisplay();
+                    }
+                }
+
+                function updatePomodoroDisplay() {
+                    const minutes = Math.floor(pomodoroTime / 60);
+                    const seconds = pomodoroTime % 60;
+                    document.getElementById('timerDisplay').textContent = 
+                        `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                    
+                    // Si tienes un elemento para la barra de progreso, asegúrate de que esté en el HTML
+                    // const totalTime = isBreak ? 5 * 60 : 25 * 60;
+                    // const progress = (totalTime - pomodoroTime) / totalTime;
+                    // const circumference = 2 * Math.PI * 45;
+                    // document.getElementById('progressCircle').style.strokeDashoffset = circumference - (progress * circumference);
+                }
+            }
+
+            // --- Funcionalidad de Modales ---
+            const modalTriggers = {
+                'mindMapBtn': 'mindMapModal',
+                'cornellBtn': 'cornellModal',
+                'highlightBtn': 'highlightModal',
+                'summaryBtn': 'summaryModal',
+                'schemaBtn': 'schemaModal',
+                'flashcardsBtn': 'flashcardsModal'
+            };
+
+            for (const btnId in modalTriggers) {
+                const trigger = document.getElementById(btnId);
+                const modal = document.getElementById(modalTriggers[btnId]);
+                if (trigger && modal) {
+                    const closeModalBtn = modal.querySelector('[id^="close"]');
+                    trigger.addEventListener('click', () => modal.classList.add('show'));
+                    if(closeModalBtn) {
+                        closeModalBtn.addEventListener('click', () => modal.classList.remove('show'));
+                    }
+                }
+            }
+            
+            // --- Fichas de Estudio (Flashcards) ---
+            const flashcardsModal = document.getElementById('flashcardsModal');
+            if(flashcardsModal){
+                const flashcards = [
+                    { question: "¿Cuál es la capital de Francia?", answer: "París" },
+                    { question: "¿Cuántos continentes hay?", answer: "7 continentes" },
+                    { question: "¿Quién escribió Don Quijote?", answer: "Miguel de Cervantes" }
+                ];
+                let currentCardIndex = 0;
+
+                document.getElementById('flashcardsBtn').addEventListener('click', showCurrentCard);
+                document.getElementById('flipCard').addEventListener('click', () => document.getElementById('flashcard').classList.toggle('flipped'));
+                document.getElementById('nextCard').addEventListener('click', () => {
+                    currentCardIndex = (currentCardIndex + 1) % flashcards.length;
+                    showCurrentCard();
+                });
+                document.getElementById('prevCard').addEventListener('click', () => {
+                    currentCardIndex = (currentCardIndex - 1 + flashcards.length) % flashcards.length;
+                    showCurrentCard();
+                });
+
+                function showCurrentCard() {
+                    const card = flashcards[currentCardIndex];
+                    document.getElementById('questionText').textContent = card.question;
+                    document.getElementById('answerText').textContent = card.answer;
+                    document.getElementById('cardCounter').textContent = `${currentCardIndex + 1} / ${flashcards.length}`;
+                    document.getElementById('flashcard').classList.remove('flipped');
+                }
+            }
+
+            // --- Lógica para el Panel de Notificaciones ---
+            const notificationPanel = document.getElementById('notificationPanel');
+            const notificationBtn = document.getElementById('notificationBtn');
+            const notificationBadge = document.getElementById('notificationBadge');
+            const closeNotificationsBtn = document.getElementById('closeNotificationsBtn');
+
+            // Función para mostrar el panel
+            const showNotificationPanel = () => {
+                notificationPanel.classList.remove('translate-x-full');
+                if (notificationBadge) {
+                    notificationBadge.style.display = 'none';
+                }
+            };
+            
+            // Función para ocultar el panel
+            const hideNotificationPanel = () => {
+                notificationPanel.classList.add('translate-x-full');
+            };
+
+            // Abrir el panel de notificaciones
+            notificationBtn.addEventListener('click', () => {
+                showNotificationPanel();
+            });
+
+            // Cerrar el panel de notificaciones
+            closeNotificationsBtn.addEventListener('click', () => {
+                hideNotificationPanel();
+            });
+
+            // Cerrar modales al hacer clic fuera
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        modal.classList.remove('show');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>

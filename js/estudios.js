@@ -47,8 +47,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 isRunning = false;
                 isBreak = !isBreak;
                 pomodoroTime = isBreak ? 5 * 60 : 25 * 60;
-                alert(isBreak ? '¡Tiempo de descanso! 😊' : '¡Hora de volver a estudiar! 📚');
-                document.getElementById('timerStatus').textContent = isBreak ? 'Tiempo de descanso' : 'Listo para estudiar';
+                // Se eliminó el "alert()" y se actualiza el estado en pantalla
+                document.getElementById('timerStatus').textContent = isBreak ? '¡Tiempo de descanso! 😊' : '¡Hora de volver a estudiar! 📚';
                 updatePomodoroDisplay();
             }
         }
@@ -59,10 +59,11 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('timerDisplay').textContent = 
                 `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
             
-            const totalTime = isBreak ? 5 * 60 : 25 * 60;
-            const progress = (totalTime - pomodoroTime) / totalTime;
-            const circumference = 2 * Math.PI * 45;
-            document.getElementById('progressCircle').style.strokeDashoffset = circumference - (progress * circumference);
+            // Si tienes un elemento para la barra de progreso, asegúrate de que esté en el HTML
+            // const totalTime = isBreak ? 5 * 60 : 25 * 60;
+            // const progress = (totalTime - pomodoroTime) / totalTime;
+            // const circumference = 2 * Math.PI * 45;
+            // document.getElementById('progressCircle').style.strokeDashoffset = circumference - (progress * circumference);
         }
     }
 
@@ -117,6 +118,35 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('flashcard').classList.remove('flipped');
         }
     }
+
+    // --- Lógica para el Panel de Notificaciones ---
+    const notificationPanel = document.getElementById('notificationPanel');
+    const notificationBtn = document.getElementById('notificationBtn');
+    const notificationBadge = document.getElementById('notificationBadge');
+    const closeNotificationsBtn = document.getElementById('closeNotificationsBtn');
+
+    // Función para mostrar el panel
+    const showNotificationPanel = () => {
+        notificationPanel.classList.remove('translate-x-full');
+        if (notificationBadge) {
+            notificationBadge.style.display = 'none';
+        }
+    };
+    
+    // Función para ocultar el panel
+    const hideNotificationPanel = () => {
+        notificationPanel.classList.add('translate-x-full');
+    };
+
+    // Abrir el panel de notificaciones
+    notificationBtn.addEventListener('click', () => {
+        showNotificationPanel();
+    });
+
+    // Cerrar el panel de notificaciones
+    closeNotificationsBtn.addEventListener('click', () => {
+        hideNotificationPanel();
+    });
 
     // Cerrar modales al hacer clic fuera
     document.querySelectorAll('.modal').forEach(modal => {

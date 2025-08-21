@@ -35,8 +35,29 @@ body {
 
 .word-grid {
     display: grid;
-    grid-template-columns: repeat(8, 1fr);
-    gap: 2px;
+    grid-template-columns: repeat(8, 60px); /* Ajusta el número de columnas y ancho */
+    gap: 10px;
+    justify-content: center;
+}
+
+.word-grid div {
+    width: 60px;
+    height: 60px;
+    background-color: white;
+    border: 2px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+}
+
+.word-grid div:hover {
+    transform: scale(1.05);
+    border-color: #7c3aed; /* Morado al pasar el mouse */
 }
 
 .letter-cell {

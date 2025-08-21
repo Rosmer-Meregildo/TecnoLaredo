@@ -15,25 +15,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['form_type'])) {
             $error_message = "Todos los campos son obligatorios.";
         } else {
             // Consulta preparada para evitar Inyección SQL
-            // Se ha añadido 'nombre' a la consulta para recuperar el nombre del usuario.
             $stmt = $con->prepare("SELECT id, nombre, contrasena FROM usuarios WHERE correo = ?");
             if ($stmt) {
                 $stmt->bind_param("s", $correo);
                 $stmt->execute();
                 $stmt->store_result();
-                // Se ha añadido una variable para enlazar el nombre.
                 $stmt->bind_result($id, $nombre, $hashed_password);
                 $stmt->fetch();
 
                 if ($stmt->num_rows > 0) {
-                    // Verifica la contraseña cifrada
                     if (password_verify($contrasena, $hashed_password)) {
-                        // Inicio de sesión exitoso
                         $_SESSION['usuario_id'] = $id;
-                        // Se guarda el nombre del usuario en la sesión.
                         $_SESSION['usuario_nombre'] = $nombre; 
                         $success_message = "¡Inicio de sesión exitoso! Redirigiendo...";
-                        header("Location: index.php"); // Redirige a la página principal
+                        header("Location: index.php");
                         exit();
                     } else {
                         $error_message = "Contraseña incorrecta.";
@@ -83,135 +78,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['form_type'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login y Registro</title>
+    <title>Login y Registro - Tecno Laredo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Estilos CSS proporcionados por el usuario */
-        :root {
-            --primary: #2c3e50;
-            --accent: #2980b9;
-            --background: #ecf0f1;
-            --white: #fff;
-            --success: #2ecc71; /* Color verde para éxito */
-            --error: #e74c3c;
-            --shadow: 0 4px 16px rgba(44,62,80,0.08);
+        .gradient-bg {
+            background-image: linear-gradient(to right, #60A5FA, #8B5CF6);
         }
-        html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            background: var(--background);
-            font-family: 'Segoe UI', Arial, sans-serif;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .container {
-            background: var(--white);
-            box-shadow: var(--shadow);
-            border-radius: 16px;
-            padding: 2.5rem 2rem;
-            width: 100%;
-            max-width: 400px;
-            margin: 0;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-        h2 {
-            color: var(--primary);
-            text-align: center;
-            margin: 0 0 1.5rem 0;
-            font-weight: 700;
-            font-size: 1.7rem;
-            letter-spacing: 0.5px;
-        }
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 1.2rem;
-        }
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.4rem;
-        }
-        label {
-            color: var(--primary);
-            font-size: 1rem;
-            margin-bottom: 0.2rem;
-            font-weight: 500;
-        }
-        input, select {
-            padding: 0.8rem;
-            border: 1px solid #bdc3c7;
-            border-radius: 8px;
-            font-size: 1rem;
-            background: var(--background);
-            transition: border-color 0.2s;
-            margin: 0;
-        }
-        input:focus, select:focus {
-            border-color: var(--accent);
-            outline: none;
-        }
-        .actions {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 0.5rem;
-            gap: 1rem;
-        }
-        button {
-            background: var(--accent);
-            color: var(--white);
-            border: none;
-            border-radius: 8px;
-            padding: 0.8rem 1.5rem;
-            font-size: 1rem;
-            cursor: pointer;
-            font-weight: 600;
-            transition: background 0.2s;
-        }
-        button:hover {
-            background: var(--primary);
-        }
-        .link {
-            background: none;
-            color: var(--accent);
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-            text-decoration: underline;
-            padding: 0;
-            font-weight: 500;
-        }
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            font-size: 0.98rem;
-            margin: 0;
-        }
-        .checkbox-group input[type="checkbox"] {
-            accent-color: var(--accent);
-            width: 18px;
-            height: 18px;
+        .form-container-gradient {
+            background: linear-gradient(to bottom, rgb(59 130 246 / 36%), #F3F4F6);
         }
         .message {
             position: absolute;
             top: -60px;
             left: 50%;
             transform: translateX(-50%);
-            background: var(--success);
-            color: var(--white);
             padding: 0.8rem 1.2rem;
             border-radius: 8px;
-            box-shadow: var(--shadow);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
             font-size: 1rem;
             font-weight: 500;
             opacity: 0;
@@ -225,63 +108,80 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['form_type'])) {
             opacity: 1;
             pointer-events: auto;
         }
-        @media (max-width: 500px) {
-            .container {
-                padding: 1.2rem 0.5rem;
-                max-width: 98vw;
-                border-radius: 10px;
-            }
-            h2 {
-                font-size: 1.2rem;
-            }
-            .message {
-                min-width: 140px;
-                font-size: 0.95rem;
-                top: -45px;
-            }
+        .message.success {
+            background-color: #34D399; /* Verde de Tailwind */
+            color: white;
+        }
+        .message.error {
+            background-color: #EF4444; /* Rojo de Tailwind */
+            color: white;
+        }
+        body {
+            background: linear-gradient(to right, #60A5FA, #8B5CF6);
         }
     </style>
 </head>
-<body>
-    <div class="container" id="login-container">
-        <h2>Iniciar Sesión</h2>
-        <form id="login-form" method="post" action="">
+<body class="bg-blue-50 flex items-center justify-center min-h-screen p-4 form-container-gradient">
+
+    <div class="rounded-xl p-6 shadow-md w-full max-w-sm bg-white form-container-gradient" id="login-container">
+        <div class="flex items-center justify-center mb-6">
+            <div class="w-12 h-12 gradient-bg rounded-full flex items-center justify-center mr-3">
+                <span class="text-2xl">🏆</span>
+            </div>
+            <h2 class="text-2xl font-bold text-gray-800">Iniciar Sesión</h2>
+        </div>
+        
+        <form id="login-form" method="post" action="" class="space-y-4">
             <input type="hidden" name="form_type" value="login">
-            <div class="form-group">
-                <label for="correo_login">Correo electrónico</label>
-                <input type="email" id="correo_login" name="correo_login" required autocomplete="username">
+            <div class="space-y-1">
+                <label for="correo_login" class="text-sm font-semibold text-gray-700">Correo electrónico</label>
+                <input type="email" id="correo_login" name="correo_login" required autocomplete="username"
+                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
             </div>
-            <div class="form-group">
-                <label for="contrasena_login">Contraseña</label>
-                <input type="password" id="contrasena_login" name="contrasena_login" required autocomplete="current-password">
+            <div class="space-y-1">
+                <label for="contrasena_login" class="text-sm font-semibold text-gray-700">Contraseña</label>
+                <input type="password" id="contrasena_login" name="contrasena_login" required autocomplete="current-password"
+                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
             </div>
-            <div class="actions">
-                <button type="submit">Entrar</button>
-                <button type="button" class="link" onclick="showRegister()">Registrarse</button>
-            </div>
+            <button type="submit"
+                    class="w-full gradient-bg text-white py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity">
+                Entrar
+            </button>
         </form>
+        <p class="text-center text-sm text-gray-600 mt-4">¿No tienes una cuenta? <button type="button" class="text-blue-600 font-semibold hover:underline" onclick="showRegister()">Regístrate</button></p>
+
         <div class="message" id="login-message"></div>
     </div>
 
-    <div class="container" id="register-container" style="display:none;">
-        <h2>Registro</h2>
-        <form id="register-form" method="post" action="">
+    <div class="rounded-xl p-6 shadow-md w-full max-w-sm hidden bg-white form-container-gradient" id="register-container">
+        <div class="flex items-center justify-center mb-6">
+            <div class="w-12 h-12 gradient-bg rounded-full flex items-center justify-center mr-3">
+                <span class="text-2xl">📝</span>
+            </div>
+            <h2 class="text-2xl font-bold text-gray-800">Registro</h2>
+        </div>
+        
+        <form id="register-form" method="post" action="" class="space-y-4">
             <input type="hidden" name="form_type" value="register">
-            <div class="form-group">
-                <label for="nombre_reg">Nombre</label>
-                <input type="text" id="nombre_reg" name="nombre_reg" required>
+            <div class="space-y-1">
+                <label for="nombre_reg" class="text-sm font-semibold text-gray-700">Nombre</label>
+                <input type="text" id="nombre_reg" name="nombre_reg" required
+                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
             </div>
-            <div class="form-group">
-                <label for="apellidos_reg">Apellidos</label>
-                <input type="text" id="apellidos_reg" name="apellidos_reg" required>
+            <div class="space-y-1">
+                <label for="apellidos_reg" class="text-sm font-semibold text-gray-700">Apellidos</label>
+                <input type="text" id="apellidos_reg" name="apellidos_reg" required
+                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
             </div>
-            <div class="form-group">
-                <label for="correo_reg">Correo electrónico</label>
-                <input type="email" id="correo_reg" name="correo_reg" required>
+            <div class="space-y-1">
+                <label for="correo_reg" class="text-sm font-semibold text-gray-700">Correo electrónico</label>
+                <input type="email" id="correo_reg" name="correo_reg" required
+                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
             </div>
-            <div class="form-group">
-                <label for="nivel_reg">Nivel de educación</label>
-                <select id="nivel_reg" name="nivel_reg" required>
+            <div class="space-y-1">
+                <label for="nivel_reg" class="text-sm font-semibold text-gray-700">Nivel de educación</label>
+                <select id="nivel_reg" name="nivel_reg" required
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                     <option value="">Seleccione...</option>
                     <option value="Primaria">Primaria</option>
                     <option value="Secundaria">Secundaria</option>
@@ -290,45 +190,43 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['form_type'])) {
                     <option value="Otro">Otro</option>
                 </select>
             </div>
-            <div class="form-group">
-                <label for="contrasena_reg">Contraseña</label>
-                <input type="password" id="contrasena_reg" name="contrasena_reg" required>
+            <div class="space-y-1">
+                <label for="contrasena_reg" class="text-sm font-semibold text-gray-700">Contraseña</label>
+                <input type="password" id="contrasena_reg" name="contrasena_reg" required
+                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
             </div>
-            <div class="checkbox-group">
-                <input type="checkbox" id="reg-terminos" required>
-                <label for="reg-terminos">Acepto términos y condiciones</label>
+            <div class="flex items-center space-x-2">
+                <input type="checkbox" id="reg-terminos" required
+                       class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500">
+                <label for="reg-terminos" class="text-sm text-gray-700">Acepto términos y condiciones</label>
             </div>
-            <div class="actions">
-                <button type="submit">Registrar</button>
-                <button type="button" class="link" onclick="showLogin()">Volver</button>
-            </div>
+            <button type="submit"
+                    class="w-full gradient-bg text-white py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity">
+                Registrar
+            </button>
         </form>
+        <p class="text-center text-sm text-gray-600 mt-4">¿Ya tienes una cuenta? <button type="button" class="text-blue-600 font-semibold hover:underline" onclick="showLogin()">Inicia sesión</button></p>
+
         <div class="message" id="register-message"></div>
     </div>
 
     <script>
-        // Funciones para mostrar/ocultar formularios y mensajes
         function showRegister() {
-            document.getElementById('login-container').style.display = 'none';
-            document.getElementById('register-container').style.display = 'flex';
+            document.getElementById('login-container').classList.add('hidden');
+            document.getElementById('register-container').classList.remove('hidden');
             hideMessage('login-message');
         }
 
         function showLogin() {
-            document.getElementById('register-container').style.display = 'none';
-            document.getElementById('login-container').style.display = 'flex';
+            document.getElementById('register-container').classList.add('hidden');
+            document.getElementById('login-container').classList.remove('hidden');
             hideMessage('register-message');
         }
 
         function showMessage(id, text, type) {
             const msg = document.getElementById(id);
             msg.textContent = text;
-            if (type === 'success') {
-                msg.style.background = 'var(--success)';
-            } else {
-                msg.style.background = 'var(--error)';
-            }
-            msg.classList.add('show');
+            msg.className = `message show ${type}`;
             setTimeout(() => {
                 msg.classList.remove('show');
             }, 3000);
@@ -340,23 +238,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['form_type'])) {
 
         // Mostrar mensajes de PHP si existen
         document.addEventListener('DOMContentLoaded', (event) => {
-            const successMessage = "<?php echo $success_message; ?>";
-            const errorMessage = "<?php echo $error_message; ?>";
+            const successMessage = "<?php echo addslashes($success_message); ?>";
+            const errorMessage = "<?php echo addslashes($error_message); ?>";
 
             if (successMessage) {
                 showMessage('login-message', successMessage, 'success');
-                // Si el mensaje es de registro, muestra el formulario de login después de un retraso.
                 if (successMessage.includes('Registro')) {
                     setTimeout(showLogin, 3100);
                 } else {
-                    // Si el login es exitoso, redirige con JavaScript.
                     setTimeout(function() {
-                        window.location.href = 'index.html';
+                        window.location.href = 'index.php';
                     }, 1500);
                 }
             }
             if (errorMessage) {
-                showMessage('login-message', errorMessage, 'error');
+                // Determina si mostrar el mensaje en el formulario de login o de registro
+                const loginContainer = document.getElementById('login-container');
+                const registerContainer = document.getElementById('register-container');
+                
+                if (!loginContainer.classList.contains('hidden')) {
+                    showMessage('login-message', errorMessage, 'error');
+                } else if (!registerContainer.classList.contains('hidden')) {
+                    showMessage('register-message', errorMessage, 'error');
+                }
             }
         });
     </script>
